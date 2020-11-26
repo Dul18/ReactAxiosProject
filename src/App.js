@@ -13,15 +13,15 @@ function App() {
       "Content-Type": "text/html; charset=UTF-8",
     }
   });
-  useEffect(async () =>{
-    const config={
-        'method':'get',
-        'url':'/?gender=female'
+  useEffect(async () => {
+    const config = {
+      'method': 'get',
+      'url': '/?gender=female'
     };
     const res = await instance.request(config);
     console.log(res)
     setUser(res.data.results[0])
-},[]);
+  }, [user]);
 
   async function get() {
     const config = {
@@ -43,11 +43,11 @@ function App() {
           <h2>Your City is = {user.location.city}</h2>
           <h2>Your Email is={user.email}</h2>
 
-         
+
         </div>
       }
-       <button onClick={() => get()} >get person</button>
-      
+      <button onClick={() => get()} >get person</button>
+
     </div>
   )
 
