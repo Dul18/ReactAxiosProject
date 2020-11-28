@@ -1,57 +1,74 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { useState, useEffect } from 'react';
+import HooksAsync from './components/HooksAsync';
+import {BrowserRouter as Router,Route,Switch,Link} from 'react-router-dom';
+import Home from './pages/Home';
+import About  from './pages/About';
+import User from './pages/User';
+import Fetch from './components/Fetch'
 
-import axios from 'axios';
+//import axios from 'axios';
+import UseMe from './components/UseMe';
 
 function App() {
-  const [user, setUser] = useState(null)
 
-  const instance = axios.create({
-    baseURL: "https://randomuser.me/api",
-    headers: {
-      "Content-Type": "text/html; charset=UTF-8",
-    }
-  });
-  useEffect(async () => {
-    const config = {
-      'method': 'get',
-      'url': '/?gender=female'
-    };
-    const res = await instance.request(config);
-    console.log(res)
-    setUser(res.data.results[0])
-  }, [user]);
+return(
 
-  async function get() {
-    const config = {
-      'method': 'get',
-      'url': '/?gender=female'
-    };
-    const res = await instance.request(config);
-    console.log(res)
-  }
-  return (
-    <div align="center">
-      {
-        user &&
-        <div align="center">
-          <img
-            src={user.picture.large} alt="ddd" />
-          <h2>Your First Name is = {user.name.title + '  ' + user.name.first}</h2>
-          <h2>Your Age is = {user.dob.age}</h2>
-          <h2>Your City is = {user.location.city}</h2>
-          <h2>Your Email is={user.email}</h2>
+  <Router>
+    <div className="App">
+      <header className="App-header">
+          <ul>
+            <li>
+              <Link to="/" >Home</Link>
+            </li>
 
+            <li>
+              <Link to={
+                {
 
-        </div>
-      }
-      <button onClick={() => get()} >get person</button>
+                  pathname: "/about",
+                  state:{
+
+                    from:"root"
+                  }
+
+                }
+
+              }
+               >About</Link>
+            </li>
+
+            <li>
+              <Link to="/user/dul/san" >User</Link>
+            </li>
+          </ul>
+
+          <div>
+            <Switch>
+              <Route exact path="/" component={Home}/>
+              <Route exact path="/about" component={About}/>
+              <Route exact path="/user/:firstName/:lastName" component={User}/>
+
+             
+            </Switch>
+          </div>
+
+      </header>
 
     </div>
-  )
 
+            </Router>
+
+
+  
+)
 
 }
 
 export default App;
+
+
+ 
+
+
